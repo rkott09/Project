@@ -1,3 +1,34 @@
+class CurrentPiece
+{
+public:
+  CurrentPiece(void);
+  ~CurrentPiece(void);
+  
+  int iCord;
+  int jCord;
+  
+  
+  CurrentPiece(int i, int j);
+};
+CurrentPiece::CurrentPiece(void)
+{
+}
+
+
+CurrentPiece::CurrentPiece(void)
+{
+}
+
+CurrentPiece::CurrentPiece(int i, int j) { //name is set to type in arg
+
+  iCord = i;
+  jCord = j;
+}
+
+
+
+
+
 class Square
 {
 public:
