@@ -135,7 +135,29 @@ void checkHallEffect()
     }
   }
 }
-
+void DisplayLEDS(void)
+{
+  int i,j;
+  for(i=0;i<3;i++)
+  {
+    for(j=0;j<3;j++)
+    {
+      if(board[i][j].piece->player == 1)
+      {
+        digitalWrite(redpins[i][j], HIGH);
+      }
+      if(board[i][j].piece->player == 2)
+      {
+        digitalWrite(bluepins[i][j], HIGH);
+      }
+      else
+      {
+        digitalWrite(redpins[i][j], LOW);
+        digitalWrite(bluepins[i][j], LOW);
+      }
+    }
+        
+} 
 int checkChange(void)
 {
   int i,j;
@@ -145,7 +167,6 @@ int checkChange(void)
     {
       if(board[i][j].piece->prevplayer != board[i][j].piece->player)
       {
-        
       }
     }
   }
