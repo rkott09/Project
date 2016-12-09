@@ -145,10 +145,12 @@ void DisplayLEDS(void)
       if(board[i][j].piece->player == 1)
       {
         digitalWrite(redpins[i][j], HIGH);
+        digitalWrite(bluepins[i][j], LOW);
       }
       if(board[i][j].piece->player == 2)
       {
         digitalWrite(bluepins[i][j], HIGH);
+        digitalWrite(redpins[i][j], LOW);
       }
       else
       {
