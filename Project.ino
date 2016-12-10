@@ -204,6 +204,98 @@ int checkChange(void)
     }
   }
 }
+  
+void legalMoves(void)
+{
+  int i, j, player;
+  int movePiece;
+  switch(movePiece)
+  {
+    case 1:
+    //pawn
+      if (player==1){
+        for(i=0; i<3; i++){
+          for(j=0; j<3; j++){
+            if(board[i+1][j].piece->player==0)//if the space in front of pawn is open
+            {
+              digitalWrite(bluepins[i+1][j], HIGH); 
+            }
+            else if(board[i+1][j+1].piece->player==2) //if there is an enemy within grasp
+            {
+              digitalWrite(bluepins[i+1][j+1], HIGH); 
+            }
+            else if(board[i+1][j-1].piece->player==2) //if there is an enemy within grasp
+            {
+              digitalWrite(bluepins[i+1][j-1], HIGH); 
+            }
+          }
+        }
+      }
+      else if(player==2){
+        for(i=2; i>=0; i--){
+          for(j=2; j>=0; j--){
+            if(board[i-1][j].piece->player==0)//if the space in front of pawn is open
+            {
+              digitalWrite(redpins[i-1][j], HIGH); 
+            }
+            else if(board[i-1][j-1].piece->player==1) //if there is an enemy within grasp
+            {
+              digitalWrite(redpins[i-1][j-1], HIGH); 
+            }
+            else if(board[i-1][j+1].piece->player==1) //if there is an enemy within grasp
+            {
+              digitalWrite(redpins[i-1][j+1], HIGH); 
+            }        
+           }
+         }
+       }
+       break;
+       
+    case 2:
+    //bishop 
+      if (player==1){
+        for(i=0; i<3; i++){
+          for(j=0; j<3; j++){
+            digitalWrite(bluepins[i+1][i+1], HIGH); //available spots to move. if enemy is there, free to take
+            digitalWrite(bluepins[i+1][i-1], HIGH);
+          }
+        }
+      }
+        else if(player==2){
+          for(i=2; i>=0; i--){
+            for(j=2; j>=0; j--){
+              digitalWrite(redpins[i-1][j-1], HIGH); //available spots to move. if enemy is there, free to take
+              digitalWrite(redpins[i-1][j+1], HIGH);
+          }
+        }
+      }
+        break;
+      
+    case 3:
+    //knight
+      if(player==1){
+         for(i=0; i<3; i++){
+            for(j=0; j<3; j++){
+              digitalWrite(bluepins[i+1][j-2], HIGH); //available spots to move. if enemy is there, free to take
+              digitalWrite(bluepins[i+1][j+2], HIGH);
+              digitalWrite(bluepins[i+2][j-1], HIGH);
+              digitalWrite(bluepins[i+2][j+1], HIGH);
+            }
+         }
+      }
+      if(player==2){
+        for(i=2; i>=0; i--){
+          for(j=2; j>=0; j--){
+            digitalWrite(redpins[i-1][j-2], HIGH); //available spots to move. if enemy is there, free to take
+            digitalWrite(redpins[i-1][j+2], HIGH);
+            digitalWrite(redpins[i-2][1-1], HIGH);
+            digitalWrite(redpins[i-2][1+1], HIGH);
+          }
+        }  
+      }
+        break;
+  }
+}
 
 void loop() {
   // put your main code here, to run repeatedly:
