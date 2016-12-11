@@ -217,6 +217,7 @@ bool checkChange(void)
       }
     }
   }
+  return FALSE; // no pieces changed
 }
   
 void legalMoves(void)
