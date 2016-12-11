@@ -89,6 +89,7 @@ Piece::Piece(String t, int p, int pp) { //name is set to type in arg
 
 #define BLUE 2
 #define RED 1
+#define EMPTY 0
 int  bluepins[3][3] = {1,2,3,4,5,6,7,8,9}; // may need change due to pin assignments.
 int  redpins[3][3]  = {10,11,12,13,14,15,16,17,18};
 int hallpins[3][3]  = {1,2,3,4,5,6,7,8,9};
@@ -208,71 +209,54 @@ int checkChange(void)
   
 void legalMoves(void)
 {
-  int i, j, player;
+  int i, j, player, name;
   int movePiece;
   player = board[iCord][jCord].piece->player;
-  
-  switch(movePiece)
+  name   = board[iCord][jCord].piece->name;
+  int iCord;
+  int jCord;
+  iCord = piece.iCord;
+  jCord = piece.jCord;
+  switch (name)
   {
-    case "Pawn":
-      if (player==1){
-        for(i=0; i<3; i++){
-          for(j=0; j<3; j++){
-            if(board[i+1][j].piece->player==0)//if the space in front of pawn is open
-            {
-              digitalWrite(bluepins[i+1][j], HIGH); 
-            }
-            else if(board[i+1][j+1].piece->player==2) //if there is an enemy within grasp
-            {
-              digitalWrite(bluepins[i+1][j+1], HIGH); 
-            }
-            else if(board[i+1][j-1].piece->player==2) //if there is an enemy within grasp
-            {
-              digitalWrite(bluepins[i+1][j-1], HIGH); 
-            }
-          }
+    case "Pawn" :
+      if (player == RED)
+      {
+        if(board[iCord+1][jCord].piece->player== EMPTY)//if the space in front of pawn is open
+        {
+          digitalWrite(redpins[iCord+1][jCord], HIGH); 
         }
+        else if(board[iCord+1][jCord+1].piece->player== BLUE) //if there is an enemy within grasp
+        {
+          digitalWrite(redpins[iCord+1][jCord+1], HIGH); 
+        }
+        else if(board[iCord+1][jCord-1].piece->player== BLUE) //if there is an enemy within grasp
+        {
+          digitalWrite(redpins[iCord+1][jCord-1], HIGH);
+        }
+
       }
-      else if(player==2){
-        for(i=2; i>=0; i--){
-          for(j=2; j>=0; j--){
-            if(board[i-1][j].piece->player==0)//if the space in front of pawn is open
-            {
-              digitalWrite(redpins[i-1][j], HIGH); 
-            }
-            else if(board[i-1][j-1].piece->player==1) //if there is an enemy within grasp
-            {
-              digitalWrite(redpins[i-1][j-1], HIGH); 
-            }
-            else if(board[i-1][j+1].piece->player==1) //if there is an enemy within grasp
-            {
-              digitalWrite(redpins[i-1][j+1], HIGH); 
-            }        
-           }
-         }
+      else if(player == BLUE)
+      {
+        if(board[iCord-1][jCord].piece->player==0)//if the space in front of pawn is open
+        {
+          digitalWrite(redpins[iCord-1][jCord], HIGH); 
+        }
+        else if(board[iCord-1][jCord-1].piece->player==1) //if there is an enemy within grasp
+        {
+          digitalWrite(redpins[iCord-1][jCord-1], HIGH); 
+        }
+        else if(board[iCord-1][jCord+1].piece->player==1) //if there is an enemy within grasp
+        {
+          digitalWrite(redpins[iCord-1][jCord+1], HIGH); 
+        }        
+
        }
-       break;
+      break;
        
     case 2:
     //bishop 
-      if (player==1){
-        for(i=0; i<3; i++){
-          for(j=0; j<3; j++){
-            digitalWrite(bluepins[i+1][i+1], HIGH); //available spots to move. if enemy is there, free to take
-            digitalWrite(bluepins[i+1][i-1], HIGH);
-          }
-        }
-      }
-        else if(player==2){
-          for(i=2; i>=0; i--){
-            for(j=2; j>=0; j--){
-              digitalWrite(redpins[i-1][j-1], HIGH); //available spots to move. if enemy is there, free to take
-              digitalWrite(redpins[i-1][j+1], HIGH);
-          }
-        }
-      }
-        break;
-  }
+
     case "Knight":
 
     /*
