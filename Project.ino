@@ -113,12 +113,12 @@ void setup() {
 
   Square board[3][3];
   // put your setup code here, to run once:
-  Piece p1("Pawn"   , 1 , 1);
-  Piece p2("Bishop"  ,1, 1);
-  Piece p3("Knight"  ,1,1);
-  Piece p4("Pawn"    ,2,2);
-  Piece p5("Bishop"  ,2,2);
-  Piece p6("Knight"  ,2,2);
+  Piece p1("Pawn"   , RED, RED);
+  Piece p2("Bishop"  ,RED, RED);
+  Piece p3("Knight"  ,RED, RED);
+  Piece p4("Pawn"    ,BLUE,BLUE);
+  Piece p5("Bishop"  ,BLUE,BLUE);
+  Piece p6("Knight"  ,BLUE,BLUE);
 
 
 
