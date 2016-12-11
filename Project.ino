@@ -203,7 +203,7 @@ void DisplayLEDS(void)
     }
         
 } 
-int checkChange(void)
+bool checkChange(void)
 {
   int i,j;
   for(i=0;i<3;i++)
@@ -213,6 +213,7 @@ int checkChange(void)
       if(board[i][j].piece->prevplayer != board[i][j].piece->player)
       {
         currp.Currentpiece(i,j);
+        return TRUE;
       }
     }
   }
@@ -314,9 +315,13 @@ void legalMoves(void)
           {
             case RED:
               digitalWrite(redpins[iCord+i][jCord+j] , HIGH);
+              movesi[z] = iCord+i;
+              movesj[z] = jCord+j;
               break;
             case BLUE:
               digitalWrite(bluepins[iCord+i][jCord+j] , HIGH);
+              moves[z] = iCord+i;
+              moves[z] = jCord+j;
               break;
           } 
 
@@ -334,9 +339,13 @@ void legalMoves(void)
           {
             case RED:
               digitalWrite(redpins[iCord+i][jCord+j] , HIGH);
+              movesi[z] = iCord+i;
+              movesj[z] = jCord+j;
               break;
             case BLUE:
               digitalWrite(bluepins[iCord+i][jCord+j] , HIGH);
+              movesi[z] = iCord+i;
+              movesj[z] = jCord+j;
               break;
           } 
         }
