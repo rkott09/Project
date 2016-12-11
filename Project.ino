@@ -94,7 +94,7 @@ int  bluepins[3][3] = {1,2,3,4,5,6,7,8,9}; // may need change due to pin assignm
 int  redpins[3][3]  = {10,11,12,13,14,15,16,17,18};
 int hallpins[3][3]  = {1,2,3,4,5,6,7,8,9};
 Square board[3][3];
-
+CurrentPiece currp;
 
 
 
@@ -211,12 +211,13 @@ void legalMoves(void)
 {
   int i, j, player, name;
   int movePiece;
-  player = board[iCord][jCord].piece->player;
-  name   = board[iCord][jCord].piece->name;
   int iCord;
   int jCord;
-  iCord = piece.iCord;
-  jCord = piece.jCord;
+  iCord = currp.iCord;
+  jCord = currp.jCord;
+  player = board[iCord][jCord].piece->player;
+  name   = board[iCord][jCord].piece->name;
+
   switch (name)
   {
     case "Pawn" :
