@@ -214,8 +214,7 @@ void legalMoves(void)
   
   switch(movePiece)
   {
-    case 1:
-    //pawn
+    case "Pawn":
       if (player==1){
         for(i=0; i<3; i++){
           for(j=0; j<3; j++){
@@ -276,59 +275,60 @@ void legalMoves(void)
   }
     case "Knight":
 
-/*
-all possible moves
--------------------
-+2 -1   where tuple = (row addition , column addition)
-+2 +1
-+1 +2
-+1 -2
--2 +1
--2 -1
--1 +2
--1 -2
-*/
-  int i, j;
-  for(i=-2; i <= 2 ; i+4)
-  {
-    for(j=-1;j<=1;j+2)
+    /*
+    all possible moves
+    -------------------
+    +2 -1   where tuple = (row addition , column addition)
+    +2 +1
+    +1 +2
+    +1 -2
+    -2 +1
+    -2 -1
+    -1 +2
+    -1 -2
+    */
+  
+    int i, j;
+    for(i=-2; i <= 2 ; i+4)
     {
-      if(board[iCord+i][jCord+j].piece->player != player)
+      for(j=-1;j<=1;j+2)
       {
-        switch(player)
+        if(board[iCord+i][jCord+j].piece->player != player)
         {
-          case RED:
-            digitalWrite(redpins[iCord+i][jCord+j] , HIGH);
-            break;
-          case BLUE:
-            digitalWrite(bluepins[iCord+i][jCord+j] , HIGH);
-            break;
-        } 
+          switch(player)
+          {
+            case RED:
+              digitalWrite(redpins[iCord+i][jCord+j] , HIGH);
+              break;
+            case BLUE:
+              digitalWrite(bluepins[iCord+i][jCord+j] , HIGH);
+              break;
+          } 
 
         //add to list of moves to check for changes in moves possible 
+        }
       }
     }
-  }
-  for(i=-1; i<=1; i+2)
-  {
-    for(j=-2;j<=2;j+4)
+    for(i=-1; i<=1; i+2)
     {
-      if(board[iCord+i][jCord+j].piece->player != player)
+      for(j=-2;j<=2;j+4)
       {
-        switch(player)
+        if(board[iCord+i][jCord+j].piece->player != player)
         {
-          case RED:
-            digitalWrite(redpins[iCord+i][jCord+j] , HIGH);
-            break;
-          case BLUE:
-            digitalWrite(bluepins[iCord+i][jCord+j] , HIGH);
-            break;
-        } 
+          switch(player)
+          {
+            case RED:
+              digitalWrite(redpins[iCord+i][jCord+j] , HIGH);
+              break;
+            case BLUE:
+              digitalWrite(bluepins[iCord+i][jCord+j] , HIGH);
+              break;
+          } 
+        }
       }
     }
+    break;
   }
-  
-}
 
 void loop() {
   // put your main code here, to run repeatedly:
