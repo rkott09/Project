@@ -238,17 +238,17 @@ void legalMoves(void)
       }
       else if(player == BLUE)
       {
-        if(board[iCord-1][jCord].piece->player==0)//if the space in front of pawn is open
+        if(board[iCord-1][jCord].piece->player==EMPTY)//if the space in front of pawn is open
         {
-          digitalWrite(redpins[iCord-1][jCord], HIGH); 
+          digitalWrite(bluepins[iCord-1][jCord], HIGH); 
         }
-        else if(board[iCord-1][jCord-1].piece->player==1) //if there is an enemy within grasp
+        else if(board[iCord-1][jCord-1].piece->player== RED) //if there is an enemy within grasp
         {
-          digitalWrite(redpins[iCord-1][jCord-1], HIGH); 
+          digitalWrite(bluepins[iCord-1][jCord-1], HIGH); 
         }
-        else if(board[iCord-1][jCord+1].piece->player==1) //if there is an enemy within grasp
+        else if(board[iCord-1][jCord+1].piece->player== RED) //if there is an enemy within grasp
         {
-          digitalWrite(redpins[iCord-1][jCord+1], HIGH); 
+          digitalWrite(bluepins[iCord-1][jCord+1], HIGH); 
         }        
 
        }
