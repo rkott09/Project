@@ -202,6 +202,7 @@ int checkChange(void)
     {
       if(board[i][j].piece->prevplayer != board[i][j].piece->player)
       {
+        currp.Currentpiece(i,j);
       }
     }
   }
