@@ -87,7 +87,8 @@ Piece::Piece(String t, int p, int pp) { //name is set to type in arg
 
 }
 
-
+#define BLUE 2
+#define RED 1
 int  bluepins[3][3] = {1,2,3,4,5,6,7,8,9}; // may need change due to pin assignments.
 int  redpins[3][3]  = {10,11,12,13,14,15,16,17,18};
 int hallpins[3][3]  = {1,2,3,4,5,6,7,8,9};
@@ -122,19 +123,19 @@ void setup() {
   {
     for (j=0; j<3; j++)
     {
-      if(board[i][j].piece->player == 1)
+      if(board[i][j].piece->player == RED)
       {
         //turn led red
         digitalWrite(redpins[i][j], HIGH);
       }
-      else if(board[i][j].piece->player == 2)
+      else if(board[i][j].piece->player == BLUE)
       {
         //turn on blu light
         digitalWrite(bluepins[i][j], HIGH);
       }
     }
   }
-  int currentPlayer = 2;  //start at 2 so that the switch makes it p1's turn first...
+  int currentPlayer = BLUE;  //start at 2 so that the switch makes it p1's turn first...
   
   
 }
@@ -173,12 +174,12 @@ void DisplayLEDS(void)
   {
     for(j=0;j<3;j++)
     {
-      if(board[i][j].piece->player == 1)
+      if(board[i][j].piece->player == RED)
       {
         digitalWrite(redpins[i][j], HIGH);
         digitalWrite(bluepins[i][j], LOW);
       }
-      if(board[i][j].piece->player == 2)
+      if(board[i][j].piece->player == BLUE)
       {
         digitalWrite(bluepins[i][j], HIGH);
         digitalWrite(redpins[i][j], LOW);
@@ -209,6 +210,8 @@ void legalMoves(void)
 {
   int i, j, player;
   int movePiece;
+  player = board[iCord][jCord].piece->player;
+  
   switch(movePiece)
   {
     case 1:
@@ -270,31 +273,61 @@ void legalMoves(void)
         }
       }
         break;
-      
-    case 3:
-    //knight
-      if(player==1){
-         for(i=0; i<3; i++){
-            for(j=0; j<3; j++){
-              digitalWrite(bluepins[i+1][j-2], HIGH); //available spots to move. if enemy is there, free to take
-              digitalWrite(bluepins[i+1][j+2], HIGH);
-              digitalWrite(bluepins[i+2][j-1], HIGH);
-              digitalWrite(bluepins[i+2][j+1], HIGH);
-            }
-         }
-      }
-      if(player==2){
-        for(i=2; i>=0; i--){
-          for(j=2; j>=0; j--){
-            digitalWrite(redpins[i-1][j-2], HIGH); //available spots to move. if enemy is there, free to take
-            digitalWrite(redpins[i-1][j+2], HIGH);
-            digitalWrite(redpins[i-2][1-1], HIGH);
-            digitalWrite(redpins[i-2][1+1], HIGH);
-          }
-        }  
-      }
-        break;
   }
+    case "Knight":
+
+/*
+all possible moves
+-------------------
++2 -1   where tuple = (row addition , column addition)
++2 +1
++1 +2
++1 -2
+-2 +1
+-2 -1
+-1 +2
+-1 -2
+*/
+  int i, j;
+  for(i=-2; i <= 2 ; i+4)
+  {
+    for(j=-1;j<=1;j+2)
+    {
+      if(board[iCord+i][jCord+j].piece->player != player)
+      {
+        switch(player)
+        {
+          case RED:
+            digitalWrite(redpins[iCord+i][jCord+j] , HIGH);
+            break;
+          case BLUE:
+            digitalWrite(bluepins[iCord+i][jCord+j] , HIGH);
+            break;
+        } 
+
+        //add to list of moves to check for changes in moves possible 
+      }
+    }
+  }
+  for(i=-1; i<=1; i+2)
+  {
+    for(j=-2;j<=2;j+4)
+    {
+      if(board[iCord+i][jCord+j].piece->player != player)
+      {
+        switch(player)
+        {
+          case RED:
+            digitalWrite(redpins[iCord+i][jCord+j] , HIGH);
+            break;
+          case BLUE:
+            digitalWrite(bluepins[iCord+i][jCord+j] , HIGH);
+            break;
+        } 
+      }
+    }
+  }
+  
 }
 
 void loop() {
