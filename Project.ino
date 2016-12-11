@@ -354,8 +354,39 @@ void legalMoves(void)
     }
     break;
   }
+  
+  
+bool void checkMovement(void)
+{
+  int done = 0;
+  int checki[10]=currp->movesi[10];
+  int checkj[10]=currp->movesj[10];
+  int i;
+  while(done == 0)
+  {
+    for(i=0;i<10;i++)
+    {
+      if(board[checki[i]][checkj[j]].piece->player != board[checki[i]][checkj[j]].piece->prevplayer)
+      {
+        done = 1;
+        
+      }
+    }
+  }
+}
 
 void loop() {
   // put your main code here, to run repeatedly:
-
+  setup();
+  while(0)
+  {
+    checkHallEffect();
+    DisplayLEDS();
+    if(checkChange())
+    {
+      legalMoves();
+    }
+  }
+    
+  }
 }
