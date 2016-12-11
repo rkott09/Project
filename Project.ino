@@ -1,3 +1,17 @@
+
+//defines
+#define BLUE 2
+#define RED 1
+#define EMPTY 0
+
+
+//global variables
+int  bluepins[3][3] = {1,2,3,4,5,6,7,8,9}; // may need change due to pin assignments.
+int  redpins[3][3]  = {10,11,12,13,14,15,16,17,18};
+int hallpins[3][3]  = {1,2,3,4,5,6,7,8,9};
+Square board[3][3];
+CurrentPiece currp;
+
 class CurrentPiece
 {
 public:
@@ -91,14 +105,6 @@ Piece::Piece(String t, int p, int pp) { //name is set to type in arg
 
 }
 
-#define BLUE 2
-#define RED 1
-#define EMPTY 0
-int  bluepins[3][3] = {1,2,3,4,5,6,7,8,9}; // may need change due to pin assignments.
-int  redpins[3][3]  = {10,11,12,13,14,15,16,17,18};
-int hallpins[3][3]  = {1,2,3,4,5,6,7,8,9};
-Square board[3][3];
-CurrentPiece currp;
 
 
 
