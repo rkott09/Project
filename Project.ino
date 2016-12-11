@@ -6,6 +6,9 @@ public:
   
   int iCord;
   int jCord;
+  int movesi[10];
+  int movesj[10];
+  
   
   
   CurrentPiece(int i, int j);
@@ -23,8 +26,9 @@ CurrentPiece::CurrentPiece(int i, int j) { //name is set to type in arg
 
   iCord = i;
   jCord = j;
+  movesi[10] = {0,0,0,0,0,0,0,0,0,0};
+  movesj[10] = {0,0,0,0,0,0,0,0,0,0};
 }
-
 
 
 
@@ -210,10 +214,11 @@ int checkChange(void)
   
 void legalMoves(void)
 {
-  int i, j, player, name;
+  int i, j, player, name, z;
   int movePiece;
   int iCord;
   int jCord;
+  z = 0;
   iCord = currp.iCord;
   jCord = currp.jCord;
   player = board[iCord][jCord].piece->player;
@@ -227,14 +232,23 @@ void legalMoves(void)
         if(board[iCord+1][jCord].piece->player== EMPTY)//if the space in front of pawn is open
         {
           digitalWrite(redpins[iCord+1][jCord], HIGH); 
+          currp->movesi[z] = iCord+1;
+          currp->movesj[z] = jCord;
+          z++;
         }
         else if(board[iCord+1][jCord+1].piece->player== BLUE) //if there is an enemy within grasp
         {
           digitalWrite(redpins[iCord+1][jCord+1], HIGH); 
+          currp->movesi[z] = iCord+1;
+          currp->movesj[z] = jCord+1;
+          z++;
         }
         else if(board[iCord+1][jCord-1].piece->player== BLUE) //if there is an enemy within grasp
         {
           digitalWrite(redpins[iCord+1][jCord-1], HIGH);
+          currp->movesi[z] = iCord+1;
+          currp->movesj[z] = jCord-1;
+          z++;
         }
 
       }
@@ -243,14 +257,23 @@ void legalMoves(void)
         if(board[iCord-1][jCord].piece->player==EMPTY)//if the space in front of pawn is open
         {
           digitalWrite(bluepins[iCord-1][jCord], HIGH); 
+          currp->movesi[z] = iCord-1;
+          currp->movesj[z] = jCord;
+          z++;
         }
         else if(board[iCord-1][jCord-1].piece->player== RED) //if there is an enemy within grasp
         {
           digitalWrite(bluepins[iCord-1][jCord-1], HIGH); 
+          currp->movesi[z] = iCord-1;
+          currp->movesj[z] = jCord-1;
+          z++;
         }
         else if(board[iCord-1][jCord+1].piece->player== RED) //if there is an enemy within grasp
         {
           digitalWrite(bluepins[iCord-1][jCord+1], HIGH); 
+          currp->movesi[z] = iCord-1;
+          currp->movesj[z] = jCord+1;
+          z++;
         }        
 
        }
