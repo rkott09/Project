@@ -1,0 +1,104 @@
+
+void legalMoves(*CurrentPiece piece)
+{
+    int iCord;
+    int jCord;
+    iCord = piece.iCord;
+    jCord = piece.jCord;
+    switch (board[iCord][jCord].name)
+        case pawn:
+        if (board[iCord][jCord].player == 1)
+        {
+
+            if(board[iCord+1][jCord].piece->player==0)//if the space in front of pawn is open
+            {
+              digitalWrite(bluepins[iCord+1][jCord], HIGH); 
+            }
+            else if(board[iCord+1][jCord+1].piece->player==2) //if there is an enemy within grasp
+            {
+              digitalWrite(bluepins[iCord+1][jCord+1], HIGH); 
+            }
+            else if(board[iCord+1][jCord-1].piece->player==2) //if there is an enemy within grasp
+            {
+              digitalWrite(bluepins[iCord+1][jCord-1], HIGH);
+            }
+
+         }
+        else if(board[iCord][jCord].player == 2)
+        {
+
+            if(board[iCord-1][jCord].piece->player==0)//if the space in front of pawn is open
+            {
+              digitalWrite(redpins[iCord-1][jCord], HIGH); 
+            }
+            else if(board[iCord-1][jCord-1].piece->player==1) //if there is an enemy within grasp
+            {
+              digitalWrite(redpins[iCord-1][jCord-1], HIGH); 
+            }
+            else if(board[iCord-1][jCord+1].piece->player==1) //if there is an enemy within grasp
+            {
+              digitalWrite(redpins[iCord-1][jCord+1], HIGH); 
+            }        
+
+       }
+       
+  case bishop: 
+      {
+        for(i=1; i< 2; i++)
+        {
+                if(board[iCord+i][jCord+i].piece->player == 2) //PIECE on the square is enemy , add coord and break
+                {
+                    digitalWrite(bluepins[iCord+i][jCord+i], HIGH);
+                    break;
+                }
+                else if(board[iCord+i][jCord+i].piece->player == 1) // PIECE moving to is your own piece, you can't move past it.
+                {
+                    digitalWrite(bluepins[iCord+i][jCord+i], HIGH);
+                    break;
+                }
+                else
+                {
+                    digitalWrite(bluepins[iCord+i][jCord+i], HIGH);
+                }
+
+        }
+        for(i=1;i<2;i++)
+        {
+            if(board[iCord+i][Jcord-i].piece->player == 1) 
+            {
+
+            digitalWrite(bluepins[iCord+][i+1], HIGH); //available spots to move. if enemy is there, free to take
+            digitalWrite(bluepins[i+1][iCord-1], HIGH);
+        }
+      }
+      else if(player==2){
+        for(i=2; i>=0; i--){
+          for(j=2; j>=0; j--){
+            digitalWrite(redpins[iCord-1][j-1], HIGH); //available spots to move. if enemy is there, free to take
+            digitalWrite(redpins[iCord-1][j+1], HIGH);
+          }
+        }
+      }
+      
+  case knight:
+      if(player==1){
+         for(i=0; i<3; i++){
+            for(j=0; j<3; j++){
+              digitalWrite(bluepins[i+1][j-2], HIGH); //available spots to move. if enemy is there, free to take
+              digitalWrite(bluepins[i+1][j+2], HIGH);
+              digitalWrite(bluepins[i+2][j-1], HIGH);
+              digitalWrite(bluepins[i+2][j+1], HIGH);
+            }
+         }
+      }
+      if(player==2){
+        for(i=2; i>=0; i--){
+          for(j=2; j>=0; j--){
+            digitalWrite(redpins[iCord-1][j-2], HIGH); //available spots to move. if enemy is there, free to take
+            digitalWrite(redpins[iCord-1][j+2], HIGH);
+            digitalWrite(redpins[i-2][1-1], HIGH);
+            digitalWrite(redpins[i-2][1+1], HIGH);
+          }
+        }  
+      }
+}
