@@ -140,7 +140,7 @@ void legalMoves(void)
 	int iCord;
 	int jCord;
 	z = 0;
-	iCord = 1;
+	iCord = 2;
 	jCord = 1;
 	player = board[iCord][jCord].piece->player;
 	name = board[iCord][jCord].piece->name;
@@ -150,8 +150,7 @@ void legalMoves(void)
 	case PAWN:
 		if (player == RED)
 		{
-			if (onBoard(iCord+1) && onBoard(jCord) && board[iCord + 1][jCord].piece->player
-				== EMPTY) // if the space in front of pawn is open
+			if (onBoard(iCord+1) && onBoard(jCord) && board[iCord + 1][jCord].piece->player== EMPTY) // if the space in front of pawn is open
 			{
 				//digitalWrite(redpins[iCord + 1][jCord], HIGH);
 				currp.movesi[z] = iCord + 1;
@@ -159,8 +158,7 @@ void legalMoves(void)
 				z++;
 				printf("CAN MOVE FORWARD\n");
 			}
-			if (onBoard(iCord+1) && onBoard(jCord+1) && board[iCord + 1][jCord + 1].piece->player
-				== BLUE) // if there is an enemy within grasp
+			if (onBoard(iCord+1) && onBoard(jCord+1) && board[iCord + 1][jCord + 1].piece->player== BLUE) // if there is an enemy within grasp
 			{
 				//digitalWrite(redpins[iCord + 1][jCord + 1], HIGH);
 				currp.movesi[z] = iCord + 1;
@@ -168,8 +166,7 @@ void legalMoves(void)
 				z++;
 				printf("CAN TAKE RIGHT PIECE\n");
 			}
-            if (onBoard(iCord+1) && onBoard(jCord-1) && board[iCord + 1][jCord - 1].piece->player
-				== BLUE) // if there is an enemy within grasp
+            if (onBoard(iCord+1) && onBoard(jCord-1) && board[iCord + 1][jCord - 1].piece->player== BLUE) // if there is an enemy within grasp
 			{
 				//digitalWrite(redpins[iCord + 1][jCord - 1], HIGH);
 				currp.movesi[z] = iCord + 1;
@@ -213,8 +210,7 @@ void legalMoves(void)
 		{
 			for (i = 1; i < 2; i++)
 			{
-				if (onBoard(iCord+i) && onBoard(jCord+i) && board[iCord + i][jCord + i].piece->player
-					== RED) // PIECE on the square is enemy , add coord and break
+				if (onBoard(iCord+i) && onBoard(jCord+i) && board[iCord + i][jCord + i].piece->player== RED) // PIECE on the square is enemy , add coord and break
 				{
 					//digitalWrite(bluepins[iCord + i][jCord + i], HIGH);
 					currp.movesi[z] = iCord + i;
@@ -223,8 +219,7 @@ void legalMoves(void)
 					printf("CAN TAKE PIECE\n");
 					break;
 				}
-				else if (onBoard(iCord+i) && onBoard(jCord+i) && board[iCord + i][jCord + i].piece->player
-					== BLUE) // PIECE moving to is your own piece, you can't move past it.
+				else if (onBoard(iCord+i) && onBoard(jCord+i) && board[iCord + i][jCord + i].piece->player == BLUE) // PIECE moving to is your own piece, you can't move past it.
 				{
 					//digitalWrite(bluepins[iCord + i][jCord + i], HIGH);
 					printf("YOUR OWN PIECE\n");
@@ -241,19 +236,19 @@ void legalMoves(void)
 			}
 			for (i = 1; i < 2; i++)
 			{
-				if (onBoard(iCord+i) && onBoard(jCord-i) && board[iCord + i][jCord - i].piece->player
-					== RED) // PIECE on the square is enemy , add coord and break
+				if (onBoard(iCord+i) && onBoard(jCord-i) && board[iCord + i][jCord - i].piece->player == RED) // PIECE on the square is enemy , add coord and break
 				{
 					//digitalWrite(bluepins[iCord + i][jCord - i], HIGH);
 					currp.movesi[z] = iCord + i;
 					currp.movesj[z] = jCord - i;
 					z++;
+					printf("CAN TAKE PIECE\n");
 					break;
 				}
-				else if (onBoard(iCord+i) && onBoard(jCord-i) && board[iCord + i][jCord - i].piece->player
-					== BLUE) // PIECE moving to is your own piece, you can't move past it.
+				else if (onBoard(iCord+i) && onBoard(jCord-i) && board[iCord + i][jCord - i].piece->player == BLUE) // PIECE moving to is your own piece, you can't move past it.
 				{
 					//digitalWrite(bluepins[iCord + i][jCord - i], HIGH);
+					printf("YOUR OWN PIECE\n");
 					break;
 				}
 				else
@@ -267,8 +262,7 @@ void legalMoves(void)
 			}
 			for (i = 1; i < 2; i++)
 			{
-				if (onBoard(iCord-i) && onBoard(jCord+i) && board[iCord - i][jCord + i].piece->player
-					== RED) // PIECE on the square is enemy , add coord and break
+				if (onBoard(iCord-i) && onBoard(jCord+i) && board[iCord - i][jCord + i].piece->player == RED) // PIECE on the square is enemy , add coord and break
 				{
 					//digitalWrite(bluepins[iCord - i][jCord + i], HIGH);
 					currp.movesi[z] = iCord - i;
@@ -277,8 +271,7 @@ void legalMoves(void)
 					z++;
 					break;
 				}
-				else if (onBoard(iCord-i) && onBoard(jCord+i) && board[iCord - i][jCord + i].piece->player
-					== BLUE) // PIECE moving to is your own piece, you can't move past it.
+				else if (onBoard(iCord-i) && onBoard(jCord+i) && board[iCord - i][jCord + i].piece->player == BLUE) // PIECE moving to is your own piece, you can't move past it.
 				{
 					//digitalWrite(bluepins[iCord - i][jCord + i], HIGH);
 					printf("YOUR OWN PIECE\n");
@@ -295,17 +288,16 @@ void legalMoves(void)
 			}
 			for (i = 1; i < 2; i++)
 			{
-				if (onBoard(iCord-i) && onBoard(jCord-i) && board[iCord - i][jCord - i].piece->player
-					== RED) // PIECE on the square is enemy , add coord and break
+				if (onBoard(iCord-i) && onBoard(jCord-i) && board[iCord - i][jCord - i].piece->player == RED) // PIECE on the square is enemy , add coord and break
 				{
 					//digitalWrite(bluepins[iCord - i][jCord - i], HIGH);
 					currp.movesi[z] = iCord - i;
 					currp.movesj[z] = jCord - i;
 					z++;
+					printf("CAN TAKE PIECE\n");
 					break;
 				}
-				else if (onBoard(iCord-i) && onBoard(jCord-i) && board[iCord - i][jCord - i].piece->player
-					== BLUE) // PIECE moving to is your own piece, you can't move past it.
+				else if (onBoard(iCord-i) && onBoard(jCord-i) && board[iCord - i][jCord - i].piece->player == BLUE) // PIECE moving to is your own piece, you can't move past it.
 				{
 					//digitalWrite(bluepins[iCord - i][jCord - i], HIGH);
 					break;
@@ -319,21 +311,21 @@ void legalMoves(void)
 				}
 			}
 		}
-/*
+
 		else if (board[iCord][jCord].piece->player == RED)
 		{
 			for (i = 1; i < 2; i++)
 			{
-				if (board[iCord + i][jCord + i].piece->player
-					== BLUE) // PIECE on the square is enemy , add coord and break
+				if (onBoard(iCord+1) && onBoard(jCord+1) && board[iCord + i][jCord + i].piece->player == BLUE) // PIECE on the square is enemy , add coord and break
 				{
 					//digitalWrite(redpins[iCord + i][jCord + i], HIGH);
 					currp.movesi[z] = iCord + i;
 					currp.movesj[z] = jCord + i;
+					z++;
+					printf("CAN TAKE PIECE\n");
 					break;
 				}
-				else if (board[iCord + i][jCord + i].piece->player
-					== RED) // PIECE moving to is your own piece, you can't move past it.
+				else if (onBoard(iCord+1) && onBoard(jCord+1) && board[iCord + i][jCord + i].piece->player == RED) // PIECE moving to is your own piece, you can't move past it.
 				{
 					//digitalWrite(redpins[iCord + i][jCord + i], HIGH);
 					break;
@@ -343,20 +335,22 @@ void legalMoves(void)
 					//digitalWrite(redpins[iCord + i][jCord + i],HIGH); // piece on square is empty, add to piece
 					currp.movesi[z] = iCord + i;
 					currp.movesj[z] = jCord + i;
+					printf("EMPTY PIECE\n");
+					z++;
 				}
 			}
 			for (i = 1; i < 2; i++)
 			{
-				if (board[iCord + i][jCord - i].piece->player
-					== BLUE) // PIECE on the square is enemy , add coord and break
+				if (onBoard(iCord+1) && onBoard(jCord-1) && board[iCord + i][jCord - i].piece->player == BLUE) // PIECE on the square is enemy , add coord and break
 				{
 					//digitalWrite(redpins[iCord + i][jCord - i], HIGH);
 					currp.movesi[z] = iCord + i;
 					currp.movesj[z] = jCord - i;
+					z++;
+					printf("CAN TAKE PIECE\n");
 					break;
 				}
-				else if (board[iCord + i][jCord - i].piece->player
-					== RED) // PIECE moving to is your own piece, you can't move past it.
+				else if (onBoard(iCord+1) && onBoard(jCord-1) && board[iCord + i][jCord - i].piece->player == RED) // PIECE moving to is your own piece, you can't move past it.
 				{
 					//digitalWrite(redpins[iCord + i][jCord - i], HIGH);
 					break;
@@ -366,54 +360,58 @@ void legalMoves(void)
 					//digitalWrite(redpins[iCord + i][jCord - i],HIGH); // piece on square is empty, add to piece
 					currp.movesi[z] = iCord + i;
 					currp.movesj[z] = jCord - i;
+					printf("EMPTY PIECE\n");
+					z++;
 				}
 			}
 			for (i = 1; i < 2; i++)
 			{
-				if (board[iCord - i][jCord + i].piece->player
-					== BLUE) // PIECE on the square is enemy , add coord and break
+				if (onBoard(iCord-1) && onBoard(jCord+1) && board[iCord - i][jCord + i].piece->player == BLUE) // PIECE on the square is enemy , add coord and break
 				{
 					//digitalWrite(redpins[iCord - i][jCord + i], HIGH);
 					currp.movesi[z] = iCord - i;
 					currp.movesj[z] = jCord + i;
+					printf("CAN TAKE PIECE\n");
+					z++;
 					break;
 				}
-				else if (board[iCord - i][jCord + i].piece->player
-					== RED) // PIECE moving to is your own piece, you can't move past it.
+				else if (onBoard(iCord-1) && onBoard(jCord+1) && board[iCord - i][jCord + i].piece->player == RED) // PIECE moving to is your own piece, you can't move past it.
 				{
-					digitalWrite(redpins[iCord - i][jCord + i], HIGH);
+					//digitalWrite(redpins[iCord - i][jCord + i], HIGH);
 					break;
 				}
 				else
 				{
-					digitalWrite(redpins[iCord - i][jCord + i],
-						HIGH); // piece on square is empty, add to piece
+					//digitalWrite(redpins[iCord - i][jCord + i],HIGH); // piece on square is empty, add to piece
 					currp.movesi[z] = iCord - i;
 					currp.movesj[z] = jCord + i;
+					printf("EMPTY PIECE\n");
+					z++;
 				}
 			}
 			for (i = 1; i < 2; i++)
 			{
-				if (board[iCord - i][jCord - i].piece->player
-					== BLUE) // PIECE on the square is enemy , add coord and break
+				if (onBoard(iCord-1) && onBoard(jCord-1) && board[iCord - i][jCord - i].piece->player == BLUE) // PIECE on the square is enemy , add coord and break
 				{
-					digitalWrite(redpins[iCord - i][jCord - i], HIGH);
+					//digitalWrite(redpins[iCord - i][jCord - i], HIGH);
 					currp.movesi[z] = iCord - i;
 					currp.movesj[z] = jCord - i;
+					printf("CAN TAKE PIECE\n");
+					z++;
 					break;
 				}
-				else if (board[iCord - i][jCord - i].piece->player
-					== RED) // PIECE moving to is your own piece, you can't move past it.
+				else if (onBoard(iCord-1) && onBoard(jCord-1) && board[iCord - i][jCord - i].piece->player == RED) // PIECE moving to is your own piece, you can't move past it.
 				{
-					digitalWrite(redpins[iCord - i][jCord - i], HIGH);
+					//digitalWrite(redpins[iCord - i][jCord - i], HIGH);
 					break;
 				}
 				else
 				{
-					digitalWrite(redpins[iCord - i][jCord - i],
-						HIGH); // piece on square is empty, add to piece
+					//digitalWrite(redpins[iCord - i][jCord - i], HIGH); // piece on square is empty, add to piece
 					currp.movesi[z] = iCord - i;
 					currp.movesj[z] = jCord - i;
+					printf("EMPTY PIECE\n");
+					z++;
 				}
 			}
 		}
@@ -426,19 +424,23 @@ void legalMoves(void)
 		{
 			for (j = -1; j <= 1; j + 2)
 			{
-				if (board[iCord + i][jCord + j].piece->player != player)
+				if (onBoard(iCord+i) && onBoard(jCord+j) && board[iCord + i][jCord + j].piece->player != player)
 				{
 					switch (player)
 					{
 					case RED:
-						digitalWrite(redpins[iCord + i][jCord + j], HIGH);
+						//digitalWrite(redpins[iCord + i][jCord + j], HIGH);
 						currp.movesi[z] = iCord + i;
 						currp.movesj[z] = jCord + j;
+						z++;
+						printf("OPEN SPACE\n");
 						break;
 					case BLUE:
-						digitalWrite(bluepins[iCord + i][jCord + j], HIGH);
+						//digitalWrite(bluepins[iCord + i][jCord + j], HIGH);
 						currp.movesi[z] = iCord + i;
 						currp.movesj[z] = jCord + j;
+						z++;
+						printf("OPEN SPACE\n");
 						break;
 					}
 
@@ -450,41 +452,46 @@ void legalMoves(void)
 		{
 			for (j = -2; j <= 2; j + 4)
 			{
-				if (board[iCord + i][jCord + j].piece->player != player)
+				if (onBoard(iCord+i) && onBoard(jCord+j) && board[iCord + i][jCord + j].piece->player != player)
 				{
 					switch (player)
 					{
 					case RED:
-						digitalWrite(redpins[iCord + i][jCord + j], HIGH);
+						//digitalWrite(redpins[iCord + i][jCord + j], HIGH);
 						currp.movesi[z] = iCord + i;
 						currp.movesj[z] = jCord + j;
+						z++;
+						printf("OPEN SPACE\n");
 						break;
 					case BLUE:
-						digitalWrite(bluepins[iCord + i][jCord + j], HIGH);
+						//digitalWrite(bluepins[iCord + i][jCord + j], HIGH);
 						currp.movesi[z] = iCord + i;
 						currp.movesj[z] = jCord + j;
+						printf("OPEN SPACE\n");
+						z++;
 						break;
 					}
 				}
 			}
 		}
-		break;*/
+		break;
 	}
 	currp.index = z;
 
-}}
+}
+
 int main()
 {
 
-    board[0][0].piece= &rp;
-    board[0][1].piece = &p8;
-    board[0][2].piece = &rk;
+    board[0][0].piece = &bp;
+    board[0][1].piece = &bb;
+    board[0][2].piece = &bk;
     board[1][0].piece = &p9;
-    board[1][1].piece = &bb;
-    board[1][2].piece = &bb;
-    board[2][0].piece = &p7;
-    board[2][1].piece = &bk;
-    board[2][2].piece = &rb;
+    board[1][1].piece = &p8;
+    board[1][2].piece = &p7;
+    board[2][0].piece = &rk;
+    board[2][1].piece = &rb;
+    board[2][2].piece = &rp;
 
     for(int i=0;i<3;i++)
     {
