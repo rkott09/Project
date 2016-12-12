@@ -420,9 +420,9 @@ void legalMoves(void)
 	case KNIGHT:
 
 		int i, j;
-		for (i = -2; i <= 2; i + 4)
+		for (i = -2; i <= 2; i=i + 4)
 		{
-			for (j = -1; j <= 1; j + 2)
+			for (j = -1; j <= 1; j=j + 2)
 			{
 				if (onBoard(iCord+i) && onBoard(jCord+j) && board[iCord + i][jCord + j].piece->player != player)
 				{
@@ -448,9 +448,9 @@ void legalMoves(void)
 				}
 			}
 		}
-		for (i = -1; i <= 1; i + 2)
+		for (i = -1; i <= 1; i=i + 2)
 		{
-			for (j = -2; j <= 2; j + 4)
+			for (j = -2; j <= 2; j=j + 4)
 			{
 				if (onBoard(iCord+i) && onBoard(jCord+j) && board[iCord + i][jCord + j].piece->player != player)
 				{
