@@ -1,0 +1,508 @@
+#include <iostream>
+
+using namespace std;
+
+//defines
+#define BLUE 2
+#define RED 1
+#define EMPTY 0
+#define PAWN 1
+#define BISHOP 2
+#define KNIGHT 3
+#define nullptr 0
+
+#include <stdlib.h>
+#include <stdio.h>
+
+class CurrentPiece
+{
+public:
+	CurrentPiece(void);
+	~CurrentPiece(void);
+
+	int iCord;
+	int jCord;
+	int movesi[10] = { 0,0,0,0,0,0,0,0,0,0 };
+	int movesj[10] = { 0,0,0,0,0,0,0,0,0,0 };
+	int index;
+
+	CurrentPiece(int i, int j);
+};
+
+CurrentPiece::CurrentPiece(void)
+{
+}
+CurrentPiece::~CurrentPiece(void)
+{
+}
+CurrentPiece::CurrentPiece(int i, int j) { //name is set to type in arg
+
+	iCord = i;
+	jCord = j;
+	index = 0;
+
+}
+
+class Square
+{
+public:
+	Square(void);
+	~Square(void);
+
+	class Piece *piece; //pointer to piece on the square. void if no piece is present.
+
+	Square(Piece *);
+};
+
+Square::Square(void)
+{
+	piece = nullptr;  //initialize the square to null
+}
+
+Square::Square(Piece *p) {
+
+	piece = p;
+
+}
+
+Square::~Square(void)
+{
+}
+
+class Piece
+{
+public:
+	Piece(void);
+	~Piece(void);
+
+	int name;
+	int player;
+	int prevplayer;
+
+	Piece(int t, int p, int pp); //type constructor
+};
+
+Piece::Piece(void)
+{
+}
+
+
+Piece::~Piece(void)
+{
+}
+
+Piece::Piece(int t, int p, int pp) { //name is set to type in arg
+
+	name = t;
+	player = p;
+	prevplayer = pp;
+
+}
+
+
+
+
+//global variables
+int  bluepins[3][3] = { 1,2,3,4,5,6,7,8,9 }; // may need change due to pin assignments.
+int  redpins[3][3] = { 10,11,12,13,14,15,16,17,18 };
+int hallpins[3][3] = { 1,2,3,4,5,6,7,8,9 };
+CurrentPiece currp;
+int currentPlayer = BLUE;  //start at 2 so that the switch makes it p1's turn first...
+// put your setup code here, to run once:
+Piece rp(PAWN, RED, RED);
+Piece rb(BISHOP, RED, RED);
+Piece rk(KNIGHT, RED, RED);
+Piece bp(PAWN, BLUE, BLUE);
+Piece bb(BISHOP, BLUE, BLUE);
+Piece bk(KNIGHT, BLUE, BLUE);
+Piece p7(EMPTY, EMPTY, EMPTY);
+Piece p8(EMPTY, EMPTY, EMPTY);
+Piece p9(EMPTY, EMPTY, EMPTY);
+Square board[3][3];
+bool onBoard(int a)
+{
+
+    if(a>= 0 && a<= 2)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+void legalMoves(void)
+{
+	int i, j, player, z;
+	int name;
+	int movePiece;
+	int iCord;
+	int jCord;
+	z = 0;
+	iCord = 1;
+	jCord = 1;
+	player = board[iCord][jCord].piece->player;
+	name = board[iCord][jCord].piece->name;
+
+	switch (name)
+	{
+	case PAWN:
+		if (player == RED)
+		{
+			if (onBoard(iCord+1) && onBoard(jCord) && board[iCord + 1][jCord].piece->player
+				== EMPTY) // if the space in front of pawn is open
+			{
+				//digitalWrite(redpins[iCord + 1][jCord], HIGH);
+				currp.movesi[z] = iCord + 1;
+				currp.movesj[z] = jCord;
+				z++;
+				printf("CAN MOVE FORWARD\n");
+			}
+			if (onBoard(iCord+1) && onBoard(jCord+1) && board[iCord + 1][jCord + 1].piece->player
+				== BLUE) // if there is an enemy within grasp
+			{
+				//digitalWrite(redpins[iCord + 1][jCord + 1], HIGH);
+				currp.movesi[z] = iCord + 1;
+				currp.movesj[z] = jCord + 1;
+				z++;
+				printf("CAN TAKE RIGHT PIECE\n");
+			}
+            if (onBoard(iCord+1) && onBoard(jCord-1) && board[iCord + 1][jCord - 1].piece->player
+				== BLUE) // if there is an enemy within grasp
+			{
+				//digitalWrite(redpins[iCord + 1][jCord - 1], HIGH);
+				currp.movesi[z] = iCord + 1;
+				currp.movesj[z] = jCord - 1;
+				z++;
+				printf("CAN TAKE LEFT PIECE\n");
+			}
+		}
+		else if (player == BLUE)
+		{
+			if (onBoard(iCord-1) && onBoard(jCord) && board[iCord - 1][jCord].piece->player == EMPTY) // if the space in front of pawn is open
+			{
+				//digitalWrite(bluepins[iCord - 1][jCord], HIGH);
+				currp.movesi[z] = iCord - 1;
+				currp.movesj[z] = jCord;
+				z++;
+				printf("CAN MOVE FORWARD\n");
+			}
+			if (onBoard(iCord-1) && onBoard(jCord-1) && board[iCord - 1][jCord - 1].piece->player == RED) // if there is an enemy within grasp
+			{
+				//digitalWrite(bluepins[iCord - 1][jCord - 1], HIGH);
+				currp.movesi[z] = iCord - 1;
+				currp.movesj[z] = jCord - 1;
+				z++;
+				printf("CAN TAKE RIGHT PIECE\n");
+			}
+            if (onBoard(iCord-1) && onBoard(jCord+1) && board[iCord - 1][jCord + 1].piece->player == RED) // if there is an enemy within grasp
+			{
+				//digitalWrite(bluepins[iCord - 1][jCord + 1], HIGH);
+				currp.movesi[z] = iCord - 1;
+				currp.movesj[z] = jCord + 1;
+				z++;
+				printf("CAN TAKE LEFT PIECE\n");
+			}
+		}
+		break;
+
+	case BISHOP:
+	{
+		if (board[iCord][jCord].piece->player == BLUE)
+		{
+			for (i = 1; i < 2; i++)
+			{
+				if (onBoard(iCord+i) && onBoard(jCord+i) && board[iCord + i][jCord + i].piece->player
+					== RED) // PIECE on the square is enemy , add coord and break
+				{
+					//digitalWrite(bluepins[iCord + i][jCord + i], HIGH);
+					currp.movesi[z] = iCord + i;
+					currp.movesj[z] = jCord + i;
+					z++;
+					printf("CAN TAKE PIECE\n");
+					break;
+				}
+				else if (onBoard(iCord+i) && onBoard(jCord+i) && board[iCord + i][jCord + i].piece->player
+					== BLUE) // PIECE moving to is your own piece, you can't move past it.
+				{
+					//digitalWrite(bluepins[iCord + i][jCord + i], HIGH);
+					printf("YOUR OWN PIECE\n");
+					break;
+				}
+				else
+				{
+					//digitalWrite(bluepins[iCord + i][jCord + i], HIGH); // piece on square is empty, add to piece
+					currp.movesi[z] = iCord + i;
+					currp.movesj[z] = jCord + i;
+					z++;
+					printf("EMPTY SPOT");
+				}
+			}
+			for (i = 1; i < 2; i++)
+			{
+				if (onBoard(iCord+i) && onBoard(jCord-i) && board[iCord + i][jCord - i].piece->player
+					== RED) // PIECE on the square is enemy , add coord and break
+				{
+					//digitalWrite(bluepins[iCord + i][jCord - i], HIGH);
+					currp.movesi[z] = iCord + i;
+					currp.movesj[z] = jCord - i;
+					z++;
+					break;
+				}
+				else if (onBoard(iCord+i) && onBoard(jCord-i) && board[iCord + i][jCord - i].piece->player
+					== BLUE) // PIECE moving to is your own piece, you can't move past it.
+				{
+					//digitalWrite(bluepins[iCord + i][jCord - i], HIGH);
+					break;
+				}
+				else
+				{
+					//digitalWrite(bluepins[iCord + i][jCord - i],HIGH); // piece on square is empty, add to piece
+					currp.movesi[z] = iCord + i;
+					currp.movesj[z] = jCord - i;
+					z++;
+					printf("EMPTY SPOT\n");
+				}
+			}
+			for (i = 1; i < 2; i++)
+			{
+				if (onBoard(iCord-i) && onBoard(jCord+i) && board[iCord - i][jCord + i].piece->player
+					== RED) // PIECE on the square is enemy , add coord and break
+				{
+					//digitalWrite(bluepins[iCord - i][jCord + i], HIGH);
+					currp.movesi[z] = iCord - i;
+					currp.movesj[z] = jCord + i;
+                    printf("CAN TAKE PIECE\n");
+					z++;
+					break;
+				}
+				else if (onBoard(iCord-i) && onBoard(jCord+i) && board[iCord - i][jCord + i].piece->player
+					== BLUE) // PIECE moving to is your own piece, you can't move past it.
+				{
+					//digitalWrite(bluepins[iCord - i][jCord + i], HIGH);
+					printf("YOUR OWN PIECE\n");
+					break;
+				}
+				else
+				{
+					//digitalWrite(bluepins[iCord - i][jCord + i],HIGH); // piece on square is empty, add to piece
+					currp.movesi[z] = iCord - i;
+					currp.movesj[z] = jCord + i;
+					z++;
+					printf("EMPTY SPOT");
+				}
+			}
+			for (i = 1; i < 2; i++)
+			{
+				if (onBoard(iCord-i) && onBoard(jCord-i) && board[iCord - i][jCord - i].piece->player
+					== RED) // PIECE on the square is enemy , add coord and break
+				{
+					//digitalWrite(bluepins[iCord - i][jCord - i], HIGH);
+					currp.movesi[z] = iCord - i;
+					currp.movesj[z] = jCord - i;
+					z++;
+					break;
+				}
+				else if (onBoard(iCord-i) && onBoard(jCord-i) && board[iCord - i][jCord - i].piece->player
+					== BLUE) // PIECE moving to is your own piece, you can't move past it.
+				{
+					//digitalWrite(bluepins[iCord - i][jCord - i], HIGH);
+					break;
+				}
+				else
+				{
+					//digitalWrite(bluepins[iCord - i][jCord - i],HIGH); // piece on square is empty, add to piece
+					currp.movesi[z] = iCord - i;
+					currp.movesj[z] = jCord - i;
+					z++;
+				}
+			}
+		}
+/*
+		else if (board[iCord][jCord].piece->player == RED)
+		{
+			for (i = 1; i < 2; i++)
+			{
+				if (board[iCord + i][jCord + i].piece->player
+					== BLUE) // PIECE on the square is enemy , add coord and break
+				{
+					//digitalWrite(redpins[iCord + i][jCord + i], HIGH);
+					currp.movesi[z] = iCord + i;
+					currp.movesj[z] = jCord + i;
+					break;
+				}
+				else if (board[iCord + i][jCord + i].piece->player
+					== RED) // PIECE moving to is your own piece, you can't move past it.
+				{
+					//digitalWrite(redpins[iCord + i][jCord + i], HIGH);
+					break;
+				}
+				else
+				{
+					//digitalWrite(redpins[iCord + i][jCord + i],HIGH); // piece on square is empty, add to piece
+					currp.movesi[z] = iCord + i;
+					currp.movesj[z] = jCord + i;
+				}
+			}
+			for (i = 1; i < 2; i++)
+			{
+				if (board[iCord + i][jCord - i].piece->player
+					== BLUE) // PIECE on the square is enemy , add coord and break
+				{
+					//digitalWrite(redpins[iCord + i][jCord - i], HIGH);
+					currp.movesi[z] = iCord + i;
+					currp.movesj[z] = jCord - i;
+					break;
+				}
+				else if (board[iCord + i][jCord - i].piece->player
+					== RED) // PIECE moving to is your own piece, you can't move past it.
+				{
+					//digitalWrite(redpins[iCord + i][jCord - i], HIGH);
+					break;
+				}
+				else
+				{
+					//digitalWrite(redpins[iCord + i][jCord - i],HIGH); // piece on square is empty, add to piece
+					currp.movesi[z] = iCord + i;
+					currp.movesj[z] = jCord - i;
+				}
+			}
+			for (i = 1; i < 2; i++)
+			{
+				if (board[iCord - i][jCord + i].piece->player
+					== BLUE) // PIECE on the square is enemy , add coord and break
+				{
+					//digitalWrite(redpins[iCord - i][jCord + i], HIGH);
+					currp.movesi[z] = iCord - i;
+					currp.movesj[z] = jCord + i;
+					break;
+				}
+				else if (board[iCord - i][jCord + i].piece->player
+					== RED) // PIECE moving to is your own piece, you can't move past it.
+				{
+					digitalWrite(redpins[iCord - i][jCord + i], HIGH);
+					break;
+				}
+				else
+				{
+					digitalWrite(redpins[iCord - i][jCord + i],
+						HIGH); // piece on square is empty, add to piece
+					currp.movesi[z] = iCord - i;
+					currp.movesj[z] = jCord + i;
+				}
+			}
+			for (i = 1; i < 2; i++)
+			{
+				if (board[iCord - i][jCord - i].piece->player
+					== BLUE) // PIECE on the square is enemy , add coord and break
+				{
+					digitalWrite(redpins[iCord - i][jCord - i], HIGH);
+					currp.movesi[z] = iCord - i;
+					currp.movesj[z] = jCord - i;
+					break;
+				}
+				else if (board[iCord - i][jCord - i].piece->player
+					== RED) // PIECE moving to is your own piece, you can't move past it.
+				{
+					digitalWrite(redpins[iCord - i][jCord - i], HIGH);
+					break;
+				}
+				else
+				{
+					digitalWrite(redpins[iCord - i][jCord - i],
+						HIGH); // piece on square is empty, add to piece
+					currp.movesi[z] = iCord - i;
+					currp.movesj[z] = jCord - i;
+				}
+			}
+		}
+	}
+
+	case KNIGHT:
+
+		int i, j;
+		for (i = -2; i <= 2; i + 4)
+		{
+			for (j = -1; j <= 1; j + 2)
+			{
+				if (board[iCord + i][jCord + j].piece->player != player)
+				{
+					switch (player)
+					{
+					case RED:
+						digitalWrite(redpins[iCord + i][jCord + j], HIGH);
+						currp.movesi[z] = iCord + i;
+						currp.movesj[z] = jCord + j;
+						break;
+					case BLUE:
+						digitalWrite(bluepins[iCord + i][jCord + j], HIGH);
+						currp.movesi[z] = iCord + i;
+						currp.movesj[z] = jCord + j;
+						break;
+					}
+
+					// add to list of moves to check for changes in moves possible
+				}
+			}
+		}
+		for (i = -1; i <= 1; i + 2)
+		{
+			for (j = -2; j <= 2; j + 4)
+			{
+				if (board[iCord + i][jCord + j].piece->player != player)
+				{
+					switch (player)
+					{
+					case RED:
+						digitalWrite(redpins[iCord + i][jCord + j], HIGH);
+						currp.movesi[z] = iCord + i;
+						currp.movesj[z] = jCord + j;
+						break;
+					case BLUE:
+						digitalWrite(bluepins[iCord + i][jCord + j], HIGH);
+						currp.movesi[z] = iCord + i;
+						currp.movesj[z] = jCord + j;
+						break;
+					}
+				}
+			}
+		}
+		break;*/
+	}
+	currp.index = z;
+
+}}
+int main()
+{
+
+    board[0][0].piece= &rp;
+    board[0][1].piece = &p8;
+    board[0][2].piece = &rk;
+    board[1][0].piece = &p9;
+    board[1][1].piece = &bb;
+    board[1][2].piece = &bb;
+    board[2][0].piece = &p7;
+    board[2][1].piece = &bk;
+    board[2][2].piece = &rb;
+
+    for(int i=0;i<3;i++)
+    {
+        for(int j=0;j<3;j++)
+        {
+
+            printf("PIECE:%d\n",board[i][j].piece->name);
+        }
+    }
+
+
+	legalMoves();
+	for (int i = 0; i < 10; i++)
+	{
+		printf("i: %d j : %d\n", currp.movesi[i], currp.movesj[i]);
+	}
+	printf("index : %d ", currp.index);
+
+}
+
+
