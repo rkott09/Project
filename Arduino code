@@ -1,0 +1,223 @@
+int LED1 = 13; 
+int LED2 = 12;
+int LED3 = 11;
+int LED4 = 10;
+int LED5 = 9;
+int LED6 = 8;
+int LED7 = 7;
+int LED8 = 6;
+int LED9 = 5;
+int LED10 = 4;
+int LED11 = 3;
+int LED12 = 2;
+int LED13 = 24;
+int LED14 = 26;
+int LED15 = 31;
+int LED16 = 30;
+int LED17 = 32;
+int LED18 = 34;
+
+int state;
+void setup() {
+  // put your setup code here, to run once:
+  Serial.begin(9600);
+    pinMode(LED1, OUTPUT);
+    pinMode(LED2, OUTPUT);
+    pinMode(LED3, OUTPUT);
+    pinMode(LED4, OUTPUT);
+    pinMode(LED5, OUTPUT);
+    pinMode(LED6, OUTPUT);
+    pinMode(LED7, OUTPUT);
+    pinMode(LED8, OUTPUT);
+    pinMode(LED9, OUTPUT);
+    pinMode(LED10, OUTPUT);
+    pinMode(LED11, OUTPUT);
+    pinMode(LED12, OUTPUT);
+    pinMode(LED13, OUTPUT);
+    pinMode(LED14, OUTPUT);
+    pinMode(LED15, OUTPUT);
+    pinMode(LED16, OUTPUT);
+    pinMode(LED17, OUTPUT);
+    pinMode(LED18, OUTPUT);
+
+
+
+}
+
+void loop() {
+// put your main code here, to run repeatedly:
+
+  int sensorA0 = analogRead(A0);
+  //float voltageA1 = sensorA1 * (5.0 / 1023.0);
+  Serial.println(sensorA0);
+  if (sensorA0<510)
+  {
+    digitalWrite(LED1, LOW);
+    digitalWrite(LED2, HIGH);
+  }
+  else if (sensorA0>527)
+  {
+    digitalWrite(LED1, HIGH);
+    digitalWrite(LED2, LOW);
+  }
+  else 
+   {
+     digitalWrite(LED1, LOW);
+     digitalWrite(LED2, LOW);
+   }
+  
+  int sensorA1 = analogRead(A1);
+  //float voltageA1 = sensorA1 * (5.0 / 1023.0);
+  Serial.println(sensorA1);
+  if (sensorA1<510)
+  {
+    digitalWrite(LED3, LOW);
+    digitalWrite(LED4, HIGH);
+  }
+  else if (sensorA1>527)
+  {
+    digitalWrite(LED3, HIGH);
+    digitalWrite(LED4, LOW);
+  }
+  else 
+   {
+     digitalWrite(LED3, LOW);
+     digitalWrite(LED4, LOW);
+   }
+  
+  int sensorA2 = analogRead(A2);
+  //float voltageA2 = sensorA1 * (5.0 / 1023.0);
+  Serial.println(sensorA2);
+  if (sensorA2<510)
+  {
+    digitalWrite(LED5, LOW);
+    digitalWrite(LED6, HIGH);
+  }
+  else if (sensorA2>527)
+  {
+    digitalWrite(LED5, HIGH);
+    digitalWrite(LED6, LOW);
+  }
+  else 
+   {
+     digitalWrite(LED5, LOW);
+     digitalWrite(LED6, LOW);
+   }
+
+  int sensorA3 = analogRead(A3);
+  //float voltageA1 = sensorA1 * (5.0 / 1023.0);
+  Serial.println(sensorA3);
+  if (sensorA3<510)
+  {
+    digitalWrite(LED7, LOW);
+    digitalWrite(LED8, HIGH);
+  }
+  else if (sensorA3>527)
+  {
+    digitalWrite(LED7, HIGH);
+    digitalWrite(LED8, LOW);
+  }
+  else 
+   {
+     digitalWrite(LED7, LOW);
+     digitalWrite(LED8, LOW);
+   }
+  
+  int sensorA4 = analogRead(A4);
+  //float voltageA1 = sensorA1 * (5.0 / 1023.0);
+  Serial.println(sensorA4);
+  if (sensorA4<510)
+  {
+    digitalWrite(LED9, LOW);
+    digitalWrite(LED10, HIGH);
+  }
+  else if (sensorA4>527)
+  {
+    digitalWrite(LED9, HIGH);
+    digitalWrite(LED10, LOW);
+  }
+  else 
+   {
+     digitalWrite(LED9, LOW);
+     digitalWrite(LED10, LOW);
+   }
+  
+  int sensorA5 = analogRead(A5);
+  //float voltageA1 = sensorA1 * (5.0 / 1023.0);
+  Serial.println(sensorA5);
+  if (sensorA5<510)
+  {
+    digitalWrite(LED11, LOW);
+    digitalWrite(LED12, HIGH);
+  }
+  else if (sensorA5>527)
+  {
+    digitalWrite(LED11, HIGH);
+    digitalWrite(LED12, LOW);
+  }
+  else 
+   {
+     digitalWrite(LED11, LOW);
+     digitalWrite(LED12, LOW);
+   }
+  
+  int sensorA6 = analogRead(A6);
+  //float voltageA1 = sensorA1 * (5.0 / 1023.0);
+  Serial.println(sensorA6);
+  if (sensorA6<510)
+  {
+    digitalWrite(LED13, LOW);
+    digitalWrite(LED14, HIGH);
+  }
+  else if (sensorA6>527)
+  {
+    digitalWrite(LED13, HIGH);
+    digitalWrite(LED14, LOW);
+  }
+  else 
+   {
+     digitalWrite(LED13, LOW);
+     digitalWrite(LED14, LOW);
+   }
+             int sensorA7 = analogRead(A7);
+  //float voltageA1 = sensorA1 * (5.0 / 1023.0);
+  Serial.println(sensorA7);
+  if (sensorA7<510)
+  {
+    digitalWrite(LED15, HIGH);
+    digitalWrite(LED16, LOW);
+  }
+  else if (sensorA7>527)
+  {
+    digitalWrite(LED15, LOW);
+    digitalWrite(LED16, HIGH);
+  }
+  else 
+   {
+     digitalWrite(LED15, LOW);
+     digitalWrite(LED16, LOW);
+
+   }
+ 
+  
+  int sensorA8 = analogRead(A8);
+  //float voltageA1 = sensorA1 * (5.0 / 1023.0);
+  Serial.println(sensorA8);
+  if (sensorA8<510)
+  {
+    digitalWrite(LED17, LOW);
+    digitalWrite(LED18, HIGH);
+  }
+  else if (sensorA8>527)
+  {
+    digitalWrite(LED17, HIGH);
+    digitalWrite(LED18, LOW);
+  }
+  else 
+   {
+     digitalWrite(LED17, LOW);
+     digitalWrite(LED18, LOW);
+   }
+   
+  delay(150);
+}
