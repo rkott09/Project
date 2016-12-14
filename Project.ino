@@ -213,6 +213,7 @@ bool checkChange(void)
       if(board[i][j].piece->prevplayer != board[i][j].piece->player)
       {
         currp.Currentpiece(i,j);
+        checkHallEffect();
         return TRUE;
       }
     }
@@ -374,17 +375,45 @@ bool void checkMovement(void)
     }
   }
 }
+void lightMoves()
+{
 
+  for( int i = 0; i < currp.index; i++)
+  {
+    switch(board[currp.iCord][currp.jCord].piece->player)
+    {
+      case RED:
+        digitalWrite(redpins[currp.movesi[i]][currp.movesj[j]], HIGH);
+        break;
+      case BLUE:
+        digitalWrite(redpins[currp.movesi[i]][currp.movesj[j]], HIGH);
+        break;
+    }
+  }
+}
+void checkMoves()
+{
+  for(int i = 0; i < currp.index; i++)
+    if(board[currp.movesi[i]][currp.movesj[j]].piece->player != board[currp.iCord][currp.jCord])
+    {
+      done = checkChange();
+    }
+  }
+  
 void loop() {
   // put your main code here, to run repeatedly:
-  setup();
-  while(0)
-  {
-    checkHallEffect();
+  
+    checkHallEffect()
     DisplayLEDS();
     if(checkChange())
     {
+      board[iCord][jCord].piece->player
       legalMoves();
+      while(done)
+      {
+        lightMoves();
+        done = checkMoves();
+      }
     }
   }
     
