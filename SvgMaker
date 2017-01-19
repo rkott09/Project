@@ -1,0 +1,38 @@
+import java.io.PrintWrite;
+
+public class SvgMaker
+{
+  public int imWidth;
+  public int imHeight;
+  
+  private PrintWriter fp;
+  
+  public SvgMaker(int imWidth, int imHeight, String fileName)
+  {
+   
+   //capture incoming member vars
+    this.imWidth = imWidth;
+    this.imHeight = imHeight;
+   //open file
+   
+   //write the opening svg tag to the file
+   
+    this.imWidth = imWidth;
+    this.imHeight = imHeight;
+  }
+  
+  public void drawCircle(Circle circle, Fill fill, Stroke stroke)
+  {
+  }
+  public void drawRectangle(Rectangle r, Fill fill, Stroke stroke)
+  {
+  }
+  public void close()
+  {
+    //write closing svg tag to file
+    
+    //close file
+  }
+  
+    
+ 
