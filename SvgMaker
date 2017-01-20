@@ -7,18 +7,19 @@ public class SvgMaker
   
   private PrintWriter fp;
   
-  public SvgMaker(int imWidth, int imHeight, String fileName)
+  public SvgMaker(int imWidth, int imHeight, String fileName) throws FileNotFoundException
   {
    
    //capture incoming member vars
-    this.imWidth = imWidth;
+    this.imWidth = imWidth; 
     this.imHeight = imHeight;
+    File file = new File(fileName);
    //open file
+    fp = new PrintWriter(file);
    
    //write the opening svg tag to the file
    
-    this.imWidth = imWidth;
-    this.imHeight = imHeight;
+   
   }
   
   public void drawCircle(Circle circle, Fill fill, Stroke stroke)
