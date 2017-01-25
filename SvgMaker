@@ -35,5 +35,31 @@ public class SvgMaker
     //close file
   }
   
+ 
+ public void drawCircle(Circle circ, Fill fill, Stroke stroke)
+ {
+    //   <circle cx="cx" cy="cy" r="r"/>
+    //circle draw
+    System.out.print("<circle cx='" + circ.cx + "' cy='" + circl.cy + "r='" + circ.r + "'");
+    //add stroke
+    System.out.print(" stroke='rgb(" + stroke.red + stroke.green + stroke.blue + ")' stroke-width='" + stroke.width + "' stroke-opacity='" + stroke.opacity + "'");
+    //add fill
+    System.out.print(" fill='rgb(" + fill.red + fill.green + fill.blue + ")' fill-opacity='" + fill.opacity + "'>");
+    
+  }
+ 
+ 
+ public class Path
+ {
+    public int n;
+    
+    public int[] x;
+    public int[] y;
+    public Path(int n, int[] x , int[] y)
+     {
+        this.n = n;
+        this.x
+ 
+ 
     
  
